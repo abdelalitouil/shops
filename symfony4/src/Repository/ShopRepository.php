@@ -44,7 +44,11 @@ class ShopRepository extends ServiceEntityRepository
         foreach ($shops as $shop){
             // Get all the shops except those who are in the preferred and disliked list
             if (!$preferredShops->contains($shop) && !$dislikedShops->contains($shop)){
-                $shopsArray[] = $this->toArray($shop);
+                $dist = $this->distance(
+                    (object) $user->getLocation(),
+                    (object) $shop->getLocation()
+                );
+                $shopsArray[$dist] = $this->toArray($shop);
             }
         }
         return $shopsArray;
