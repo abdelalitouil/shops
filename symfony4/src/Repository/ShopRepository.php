@@ -49,4 +49,20 @@ class ShopRepository extends ServiceEntityRepository
         }
         return $shopsArray;
     }
+
+    /**
+     * Returns the preferred shops entities as a custom table.
+     * 
+     * @param User $user
+     * @return array
+     */
+    public function getPreferredList($user): ?array
+    {
+        $shops = $user->getPreferredShops();
+        $shopsArray = [];
+        foreach ($shops as $shop){
+            $shopsArray[] = $this->toArray($shop);
+        }
+        return $shopsArray;
+    }
 }
