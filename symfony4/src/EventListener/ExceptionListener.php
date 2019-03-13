@@ -33,6 +33,6 @@ class ExceptionListener
             ], Response::HTTP_BAD_REQUEST);
         }
         
-        // $event->setResponse($response);
+        $event->setResponse($response);
     }
 }
