@@ -126,4 +126,35 @@ class ShopController extends AbstractController
             'message' => "Removed successfully from preferred shops list."
         ], Response::HTTP_OK);
     }
+
+    /**
+     * Add shop to the disliked shop list
+     *  
+     * @Route("/{id}/dislike", methods="GET")
+     * @ParamConverter("shop", class="App\Entity\Shop")
+     * @param Shop $shop
+     * @return JsonResponse
+    */
+    public function dislike(Shop $shop): JsonResponse 
+    {
+        $ds = new DislikedShop();
+        $ds->setShop($shop);
+        $ds->setTime(
+            new \DateTime()
+        );
+
+        $user = $this->getUser();
+        try {
+            $user->addDislikedShop($ds);
+            $this->em->persist($user);
+            $this->em->flush();
+        
+        } catch (DBALException $e) {
+            throw $e;
+        }
+        
+        return new JsonResponse([
+            'message' => "The shop will be hidden for 2 hours."
+        ], Response::HTTP_OK);
+    }
 }
