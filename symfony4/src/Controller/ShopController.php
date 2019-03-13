@@ -100,4 +100,30 @@ class ShopController extends AbstractController
             'message' => "Added successfully to preferred shops list."
         ], Response::HTTP_OK);
     }
+
+    /**
+     * Remove shop from the preferred list.
+     *  
+     * @Route("/{id}/remove", methods="DELETE")
+     * @ParamConverter("shop", class="App\Entity\Shop")
+     * @param Shop $shop
+     * @return JsonResponse
+    */
+    public function remove(Shop $shop): JsonResponse 
+    {
+        $user = $this->getUser();
+
+        try {
+            $user->removePreferredShop($shop);
+            $this->em->persist($user);
+            $this->em->flush();
+       
+        } catch (DBALException $e) {
+            throw $e;
+        }
+        
+        return new JsonResponse([
+            'message' => "Removed successfully from preferred shops list."
+        ], Response::HTTP_OK);
+    }
 }
