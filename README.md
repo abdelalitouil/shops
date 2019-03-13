@@ -64,7 +64,7 @@ CURL --header "Content-Type: application/json" --request POST --data {\"security
 
 Format of data sent to the API:
 
-```
+```json
 {
     "security": {
         "credentials": {
