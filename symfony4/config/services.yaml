@@ -25,3 +25,15 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # Make request content converter available to be used as services
+    kernel.listener.request:
+        class: App\EventListener\RequestListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    # Make User converter (JSON to Object) available to be used as services
+    user_converter:
+       class: App\Request\ParamConverter\UserConverter
+       tags:
+           - { name: request.param_converter, priority: -1, converter: user_converter }
