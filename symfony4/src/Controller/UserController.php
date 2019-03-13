@@ -46,4 +46,29 @@ class UserController extends AbstractController
             'token' => $token
         ], Response::HTTP_OK);
     }
+
+    /**
+     * Create new user.
+     * 
+     * @Route("/register", methods="PUT")
+     * @ParamConverter("user", class = "App\Entity\User", converter = "user_converter")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function register(Request $request): JsonResponse
+    {
+        $user = $request->get('user');
+
+        try {
+            $this->em->persist($user);
+            $this->em->flush();
+        } catch(UniqueConstraintViolationException $e) {
+            // Throw exception if the user already exists
+            throw $e;
+        }
+
+        return new JsonResponse([
+            'message' => 'User added successfully.'
+        ], Response::HTTP_OK);
+    }
 }
