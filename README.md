@@ -72,10 +72,10 @@ Format of data sent to the API:
             "password": "demo"
         }
     },
-		"location": {
-			  "latitude": "-71.918303",
-			  "longitude": "30.897918"
-	  }
+    "location": {
+        "latitude": "-71.918303",
+        "longitude": "30.897918"
+    }
 }
 ```
 
@@ -110,3 +110,20 @@ Dislike a shop (ex. id = 2).
 ```
 CURL --header "X-AUTH-TOKEN: Your_token" --request GET 127.0.0.1:8000/api/shop/2/dislike
 ```
+
+Register user
+
+```
+CURL --header "Content-Type: application/json" --request PUT --data {\"email\":\"demo1@unitedremote.com\",\"password\":\"demo\"} http://127.0.0.1:8000/auth/register
+```
+
+Format of data sent to the API:
+```json
+{
+    "email": "demo1@unitedremote.com",
+    "password": "demo"
+}
+```
+
+
+
