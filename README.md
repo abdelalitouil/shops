@@ -20,11 +20,13 @@ $ cd nearby-shops
 Use the package manager [composer](https://getcomposer.org/) to install the project dependencies.
 
 ```
+$ cd symfony4
+
 $ composer install
 ```
 
 #### Configure .env file
-Copy and edit the .env file and enter the db details there:
+Copy and edit the .env file and enter the credentials (Mysql User and password) there:
 
 ```
 $ cd nearby-shops/
@@ -35,7 +37,7 @@ $ cp .env.local .env
 > DATABASE_URL=mysql://your_user:your_password@127.0.0.1:3306/nearby-shops
 
 #### Create database
-Create the database and table.
+Create the database and tables.
 
 ```
 $ php bin/console doctrine:database:create
@@ -49,7 +51,7 @@ $ php bin/console doctrine:fixtures:load --append
 ```
 
 #### Run server
-Start the server interne of php.
+Start the internal server of PHP.
 
 ```
 $ php -S 127.0.0.1:8000 -t public/
