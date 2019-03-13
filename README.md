@@ -1,7 +1,5 @@
 # Nearby shops
 
-Nearby shop is a web application that list the shops by distance.
-
 ## Requirements
 
 - PHP 7 or later
@@ -80,7 +78,6 @@ Format of data sent to the API:
 ```
 
 Then use the token value in the following requests to get:
-
 The list of nearby shops.
 
 ```
