@@ -62,6 +62,23 @@ To get the token use the following request.
 CURL --header "Content-Type: application/json" --request POST --data {\"security\":{\"credentials\":{\"email\":\"demo@unitedremote.com\",\"password\":\"demo\"}},\"location\":{\"latitude\":\"-71.918303\",\"longitude\":\"30.897918\"}} http://127.0.0.1:8000/auth/login
 ```
 
+Format of data sent to the API:
+
+```
+{
+    "security": {
+        "credentials": {
+            "email": "demo@unitedremote.com",
+            "password": "demo"
+        }
+    },
+		"location": {
+			  "latitude": "-71.918303",
+			  "longitude": "30.897918"
+	  }
+}
+```
+
 Then use the token value in the following requests to get:
 
 The list of nearby shops.
@@ -70,24 +87,25 @@ The list of nearby shops.
 CURL --header "X-AUTH-TOKEN: Your_token" --request GET 127.0.0.1:8000/api/shop/list
 ```
 
-The list preferred shops.
+The list of preferred shops.
 
 ```
 CURL --header "X-AUTH-TOKEN: Your_token" --request GET 127.0.0.1:8000/api/shop/preferredList
 ```
 
-Like shop (ex. id = 1).
+Add a shop to the preferred list (ex. id = 1).
 
 ```
 CURL --header "X-AUTH-TOKEN: Your_token" --request GET 127.0.0.1:8000/api/shop/1/like/
 ```
 
-Remove shop from the preferred list (ex. id = 1).
+Remove a shop from the preferred list (ex. id = 1).
 
 ```
 CURL --header "X-AUTH-TOKEN: Your_token" --request DELETE 127.0.0.1:8000/api/shop/1/remove
+```
 
-Dislike shop (ex. id = 2).
+Dislike a shop (ex. id = 2).
 
 ```
 CURL --header "X-AUTH-TOKEN: Your_token" --request GET 127.0.0.1:8000/api/shop/2/dislike
