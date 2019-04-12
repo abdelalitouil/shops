@@ -27,7 +27,7 @@ $ composer install
 Copy and edit the .env file and enter the credentials (Mysql User and password) there:
 
 ```
-$ cp .env.local .env
+$ cp .env.dist .env
 ```
 
 > DATABASE_URL=mysql://your_user:your_password@127.0.0.1:3306/nearby-shops
