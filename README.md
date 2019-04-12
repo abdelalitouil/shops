@@ -57,7 +57,7 @@ $ php -S 127.0.0.1:8000 -t public/
 To get the token use the following request.
 
 ```
-CURL --header "Content-Type: application/json" --request POST --data {\"security\":{\"credentials\":{\"email\":\"demo@unitedremote.com\",\"password\":\"demo\"}},\"location\":{\"latitude\":\"-71.918303\",\"longitude\":\"30.897918\"}} http://127.0.0.1:8000/auth/login
+CURL --header "Content-Type: application/json" --request POST --data {\"security\":{\"credentials\":{\"email\":\"demo@test.com\",\"password\":\"demo\"}},\"location\":{\"latitude\":\"-71.918303\",\"longitude\":\"30.897918\"}} http://127.0.0.1:8000/auth/login
 ```
 
 Format of data sent to the API:
@@ -66,7 +66,7 @@ Format of data sent to the API:
 {
     "security": {
         "credentials": {
-            "email": "demo@unitedremote.com",
+            "email": "demo@test.com",
             "password": "demo"
         }
     },
