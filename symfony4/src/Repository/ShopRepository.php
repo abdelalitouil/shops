@@ -23,7 +23,6 @@ class ShopRepository extends ServiceEntityRepository
         return [
             'id' => $shop->getId(),
             'name' => $shop->getName(),
-            'location' => $shop->getLocation(),
             'image' => $shop->getImage(),
         ];
     }

@@ -1,0 +1,19 @@
+<div class="row">
+  <div id="{{ shop.id }}" class="col-12 col-sm-6 col-lg-3 col-md-4" *ngFor="let shop of shops">
+    <div class="card shadow-lg mb-4 bg-white rounded">
+      <div class="card-header">
+        <h5 class="card-title">
+          {{ (shop.name.length) > 18 ? (shop.name | slice:0:18) + '...' : shop.name }}
+        </h5>
+      </div>
+      <div class="card-body">
+        <img src="{{ shop.image }}" class="card-img-top" alt="{{ shop.name }}">
+        <div class="row m-2">
+          <div class="col-md-12">
+            <button [disabled]="disabledBtn == shop.id" class="btn btn-danger w-100" (click)="onRemove(shop.id)">Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

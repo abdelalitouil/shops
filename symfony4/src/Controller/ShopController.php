@@ -36,7 +36,7 @@ class ShopController extends AbstractController
     {
         $user = $this->getUser();
 
-        // Delete DislikedShop objects that exceeds 2h
+        // Delete DislikedShop objects that exceed 2h
         try {
             $dislikedShops = $user->getDislikedShopObjects();
             foreach($dislikedShops as $dislikedShop) {
@@ -54,7 +54,7 @@ class ShopController extends AbstractController
         ksort($shops);
 
         return new JsonResponse([
-            'shops' => $shops
+            'shops' => array_values($shops)
         ], Response::HTTP_OK);
     }
 
@@ -97,7 +97,7 @@ class ShopController extends AbstractController
         }
 
         return new JsonResponse([
-            'message' => "Added successfully to preferred shops list."
+            'message' => "Added successfully to the preferred list."
         ], Response::HTTP_OK);
     }
 
@@ -123,7 +123,7 @@ class ShopController extends AbstractController
         }
         
         return new JsonResponse([
-            'message' => "Removed successfully from preferred shops list."
+            'message' => "Removed successfully from the preferred list."
         ], Response::HTTP_OK);
     }
 

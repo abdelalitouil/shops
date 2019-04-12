@@ -43,6 +43,7 @@ class UserController extends AbstractController
         $this->em->flush();
         
         return new JsonResponse([
+            'email' => $user->getEmail(),
             'token' => $token
         ], Response::HTTP_OK);
     }
