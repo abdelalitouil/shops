@@ -39,7 +39,7 @@ class AppFixtures extends Fixture
 
         // Create default user
         $user = new User();
-        $user->setEmail('demo@unitedremote.com');
+        $user->setEmail('demo@test.com');
         // Encode the plain password
         $user->setPassword(
             $this->encoder->encodePassword(
