@@ -1,4 +1,4 @@
-# Nearby shops
+# Shopping
 
 ## Requirements
 
@@ -111,13 +111,13 @@ CURL --header "X-AUTH-TOKEN: Your_token" --request GET 127.0.0.1:8000/api/shop/2
 Register user
 
 ```
-CURL --header "Content-Type: application/json" --request PUT --data {\"email\":\"demo1@unitedremote.com\",\"password\":\"demo\"} http://127.0.0.1:8000/auth/register
+CURL --header "Content-Type: application/json" --request PUT --data {\"email\":\"demo1@test.com\",\"password\":\"demo\"} http://127.0.0.1:8000/auth/register
 ```
 
 Format of data sent to the API:
 ```json
 {
-    "email": "demo1@unitedremote.com",
+    "email": "demo1@test.com",
     "password": "demo"
 }
 ```
