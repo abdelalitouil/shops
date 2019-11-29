@@ -3,7 +3,6 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,7 +13,7 @@ use App\Entity\Shop;
 use App\Entity\DislikedShop;
 
 /**
- * @Route("api/shop")
+ * @Route("/shops")
  */
 class ShopController extends AbstractController 
 {
@@ -26,17 +25,17 @@ class ShopController extends AbstractController
     }
 
     /** 
-     * Returns the list of shops sorted by distance
+     * Returns a list of shops sorted by distance with the actual location of the user
      * 
-     * @Route("/list", methods="GET")
+     * @Route("/", methods="GET")
      * @param ShopRepository $shopRepository
      * @return JsonResponse
      */
-    public function list(ShopRepository $shopRepository): JsonResponse 
+    public function shops(ShopRepository $shopRepository): JsonResponse 
     {
         $user = $this->getUser();
 
-        // Delete DislikedShop objects that exceed 2h
+        // Delete disliked shop that exceed 2 hours
         try {
             $dislikedShops = $user->getDislikedShopObjects();
             foreach($dislikedShops as $dislikedShop) {
@@ -59,19 +58,45 @@ class ShopController extends AbstractController
     }
 
     /**
-     * Returns the list of preferred shops
+     * Returns the list of favorite shops
      * 
-     * @Route("/preferredList", methods="GET")
+     * @Route("/favorites", methods="GET")
      * @param ShopRepository $shopRepository
      * @return JsonResponse
      */
-    public function preferredList(ShopRepository $shopRepository): JsonResponse
+    public function favorites(ShopRepository $shopRepository): JsonResponse
     {
         $user = $this->getUser();
         $shops = $shopRepository->getPreferredList($user);
 
         return new JsonResponse([
             'shops' => $shops
+        ], Response::HTTP_OK);
+    }
+
+    /**
+     * Remove shop from the favorite shops.
+     *  
+     * @Route("/{id}", methods="DELETE")
+     * @ParamConverter("shop", class="App\Entity\Shop")
+     * @param Shop $shop
+     * @return JsonResponse
+    */
+    public function remove(Shop $shop): JsonResponse 
+    {
+        $user = $this->getUser();
+
+        try {
+            $user->removePreferredShop($shop);
+            $this->em->persist($user);
+            $this->em->flush();
+       
+        } catch (DBALException $e) {
+            throw $e;
+        }
+        
+        return new JsonResponse([
+            'message' => "Removed successfully from the preferred list."
         ], Response::HTTP_OK);
     }
 
@@ -98,32 +123,6 @@ class ShopController extends AbstractController
 
         return new JsonResponse([
             'message' => "Added successfully to the preferred list."
-        ], Response::HTTP_OK);
-    }
-
-    /**
-     * Remove shop from the preferred list.
-     *  
-     * @Route("/{id}/remove", methods="DELETE")
-     * @ParamConverter("shop", class="App\Entity\Shop")
-     * @param Shop $shop
-     * @return JsonResponse
-    */
-    public function remove(Shop $shop): JsonResponse 
-    {
-        $user = $this->getUser();
-
-        try {
-            $user->removePreferredShop($shop);
-            $this->em->persist($user);
-            $this->em->flush();
-       
-        } catch (DBALException $e) {
-            throw $e;
-        }
-        
-        return new JsonResponse([
-            'message' => "Removed successfully from the preferred list."
         ], Response::HTTP_OK);
     }
 

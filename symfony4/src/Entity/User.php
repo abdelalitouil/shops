@@ -2,15 +2,18 @@
 
 namespace App\Entity;
 
+use App\Entity\Mapping\EntityBase;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
+ * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
-class User implements UserInterface
+class User extends EntityBase implements UserInterface
 {
     /**
      * @ORM\Id()

@@ -3,11 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Mapping\EntityBase;
 
 /**
+ * @ORM\Table(name="shops")
  * @ORM\Entity(repositoryClass="App\Repository\ShopRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
-class Shop
+class Shop extends EntityBase
 {
     /**
      * @ORM\Id()
