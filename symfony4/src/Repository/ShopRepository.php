@@ -33,7 +33,7 @@ class ShopRepository extends ServiceEntityRepository
      * @param User $user
      * @return array
      */
-    public function getShops($user): ?array
+    public function findShopsByUser($user): ?array
     {
         $shops = $this->findAll();
         $preferredShops = $user->getPreferredShops();
@@ -59,7 +59,7 @@ class ShopRepository extends ServiceEntityRepository
      * @param User $user
      * @return array
      */
-    public function getPreferredList($user): ?array
+    public function findFavoritesByUser($user): ?array
     {
         $shops = $user->getPreferredShops();
         $shopsArray = [];

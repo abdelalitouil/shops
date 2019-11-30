@@ -46,7 +46,7 @@ class User extends EntityBase implements UserInterface
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Shop")
      */
-    private $preferredShops;
+    private $favorites;
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -60,7 +60,7 @@ class User extends EntityBase implements UserInterface
 
     public function __construct()
     {
-        $this->preferredShops = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
         $this->dislikedShops = new ArrayCollection();
     }
 
@@ -157,24 +157,24 @@ class User extends EntityBase implements UserInterface
     /**
      * @return Collection|Shop[]
      */
-    public function getPreferredShops(): Collection
+    public function getFavorites(): Collection
     {
-        return $this->preferredShops;
+        return $this->favorites;
     }
 
-    public function addPreferredShop(Shop $shop): self
+    public function addFavorite(Shop $shop): self
     {
-        if (!$this->preferredShops->contains($shop)) {
-            $this->preferredShops[] = $shop;
+        if (!$this->favorites->contains($shop)) {
+            $this->favorites[] = $shop;
         }
 
         return $this;
     }
 
-    public function removePreferredShop(Shop $shop): self
+    public function removeFavorite(Shop $shop): self
     {
-        if ($this->preferredShops->contains($shop)) {
-            $this->preferredShops->removeElement($shop);
+        if ($this->favorites->contains($shop)) {
+            $this->favorites->removeElement($shop);
         }
 
         return $this;
